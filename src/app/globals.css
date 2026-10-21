@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/* Design tokens. Tailwind turns these into classes like bg-paper and text-ink. */
+@theme {
+  --color-paper: #ffffff;
+  --color-ink: #0b0b0b;
+  --color-mist: #f3f1ec; /* soft background behind product photos */
+  --color-blood: #ff2b1c; /* main brand red */
+  --color-sun: #ffe14a;
+  --color-mint: #8ff0c0;
+  --color-pink: #ffa3c4;
+  --color-sky: #8fd3ff;
+
+  --font-display: var(--font-anton), Impact, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+/* The shop is white mode only. */
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-blood);
+    outline-offset: 3px;
+  }
+}
+
+/* A chunky black shadow with no blur. It is what makes cards look like stickers. */
+@utility hard-shadow {
+  box-shadow: 5px 5px 0 var(--color-ink);
+}
+
+/* A rotated label that looks stuck on top of something. */
+@utility sticker {
+  display: inline-block;
+  border: 2px solid var(--color-ink);
+  padding: 0.15rem 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  box-shadow: 3px 3px 0 var(--color-ink);
+}
+
+/* ---------- Pulsing circle (pin) on photos ---------- */
+@keyframes hotspot-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 43 28 / 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgb(255 43 28 / 0);
+  }
+}
+
+.hotspot-dot {
+  animation: hotspot-pulse 1.6s ease-out infinite;
+}
+
+/* ---------- Scrolling banner ---------- */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* ---------- Cart counter pops when it changes ---------- */
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.25) rotate(-4deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop {
+  animation: pop 0.35s ease-out;
+}
+
+/* ---------- Confetti on a successful order ---------- */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0.9;
+  }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: 0;
+  width: 10px;
+  height: 16px;
+  animation: confetti-fall linear forwards;
+  pointer-events: none;
+  z-index: 60;
+}
+
+/* Respect people who turn animations off in their system settings. */
+@media (prefers-reduced-motion: reduce) {
+  .hotspot-dot,
+  .marquee,
+  .pop,
+  .confetti-piece {
+    animation: none;
+  }
+}
