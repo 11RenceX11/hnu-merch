@@ -15,22 +15,10 @@ Generate the session secret with `openssl rand -base64 32`.
 
 ## Accounts
 
-The accounts are fixed in the code (`src/data/seed-users.ts`). There is no sign-up and no user
-database. The login page shows both accounts and fills the form in for you (it starts with the
-collector). Click "Admin" to switch.
-
-| Account   | Email                       | Password         |
-|-----------|-----------------------------|------------------|
-| Collector | `collector@hnu-merch.test`  | `Collector#2026` |
-| Admin     | `admin@hnu-merch.test`      | `HnuAdmin#2026`  |
-
-Passwords are stored as scrypt hashes, never as plain text. To change one, create a hash with
-`hashPassword()` from `src/lib/password.ts`, paste it into `src/data/seed-users.ts`, and update
-`src/data/demo-accounts.ts` so the login page shows the new password.
-
-Login follows the Next.js authentication guide: a Server Action with `useActionState`, Zod
-validation, an HttpOnly JWT cookie signed with `jose` (`src/lib/session.ts`), a Data Access Layer
-(`src/lib/dal.ts`) and a Proxy for quick redirects (`src/proxy.ts`).
+The accounts are fixed in the code (`src/data/seed-users.ts`). There is no sign-up or user
+database. Choose **Log in as Collector** or **Log in as Admin** to start a demo session directly.
+The session is stored in an HttpOnly JWT cookie signed with `jose` (`src/lib/session.ts`); the
+Data Access Layer (`src/lib/dal.ts`) and Proxy (`src/proxy.ts`) enforce access to protected pages.
 
 ## What the admin can do (`/admin`)
 

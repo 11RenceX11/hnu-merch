@@ -115,13 +115,12 @@ export type StorefrontProduct = Product & {
 
 export type UserRole = "collector" | "admin";
 
-/** A stored account. Never send this to the browser: it contains the password hash. */
+/** A fixed account used by the demo shop. */
 export type User = {
   id: string;
   name: string;
   email: string;
   role: UserRole;
-  passwordHash: string;
   createdAt: string;
 };
 

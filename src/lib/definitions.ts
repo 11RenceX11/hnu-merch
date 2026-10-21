@@ -29,15 +29,6 @@ export function getFieldErrors(error: z.ZodError): Record<string, string[]> {
 }
 
 // ---------------------------------------------------------------
-// Accounts
-// ---------------------------------------------------------------
-
-export const LoginSchema = z.object({
-  email: z.string().trim().toLowerCase().pipe(z.email("Please enter a valid email.")),
-  password: z.string().min(1, "Please enter your password.").max(128),
-});
-
-// ---------------------------------------------------------------
 // Newsletter
 // ---------------------------------------------------------------
 
